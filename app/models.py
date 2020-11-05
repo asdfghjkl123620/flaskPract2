@@ -4,6 +4,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from hashlib import md5
 
+#直接創造一個跟追蹤 粉絲 相關的數據庫模型不需要變成類別
+
+followers = db.Table(
+    'followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
+
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -14,6 +24,18 @@ class User(UserMixin, db.Model):
     #更新數據庫模型 兩個新的字段要添加至數據庫裡面 接下來要生成數據庫遷移
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+
+    #追蹤功能的聲明多對多關係
+    # followed = db.relationship(
+    #     'User',secondary=followers,
+    #     primaryjoin=(followers.c.follower_id == id),
+    #     secondaryjoin=(followers.c.followed_id == id),
+    #     backref=db.backref('followers',lazy='dynamic'), lazy='dynamic')
+    followed = db.relationship(
+    'User', secondary=followers,
+    primaryjoin=(followers.c.follower_id == id),
+    secondaryjoin=(followers.c.followed_id == id),
+    backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
