@@ -39,8 +39,8 @@ class User(UserMixin, db.Model):
 
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        return 'https://www.gravatar.com/avatar/{}d=identicon&s={}'.format(digest, size)
-
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -68,7 +68,7 @@ class User(UserMixin, db.Model):
         
         followed = Post.query.join(
             followers, (followers.c.followed_id == Post.user_id)).filter(
-                followers.c.followed_id == self.id)
+                followers.c.follower_id == self.id)
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
     
