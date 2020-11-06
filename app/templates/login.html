@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+<p>新的使用者? <a href="{{ url_for('register') }}">點擊註冊!</a></p>
 
-    <h1>Sign In</h1>
+    <h1>登入</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>

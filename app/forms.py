@@ -45,3 +45,6 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Please use a different email address..')
+class PostForm(FlaskForm):
+    post = TextAreaField('說一些東西...', validators=[DataRequired(), Length(min=1, max=140)])
+    submit = SubmitField('提交')

@@ -10,8 +10,14 @@
             <h1>使用者: {{ user.username }}</h1>
             {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
             {% if user.last_seen %}<p>Last seen on:{{ user.last_seen }}</p>{% endif %}
+            <p>共 {{ user.followers.count() }} 名追蹤者, 已追蹤 {{ user.followed.count() }}人</p>
             {% if user == current_user %}
             <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
+            {% elif not current_user.is_following(user) %}
+            <p><a href="{{ url_for('follow', username=user.username )}}">追蹤</a></p>
+            {% else %}
+            <p><a href="{{ url_for('unfollow', username=user.username )}}">退追蹤</a></p>
+
             {% endif %}
         </td>
     </tr>

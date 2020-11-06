@@ -4,6 +4,6 @@
             <img src="{{ post.author.avatar(36) }}" alt="">
            
         </td>
-        <td>{{ post.author.username }} 說:<br>{{ post.body }}</td>
+        <td><a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a> 說:<br>{{ post.body }}</td>
     </tr>
 </table>
