@@ -23,4 +23,8 @@
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit() }}</p>
     </form>
+    <p>
+        忘記密碼?
+        <a href="{{ url_for('reset_password_request') }}">點擊重製</a>
+    </p>
 {% endblock %}

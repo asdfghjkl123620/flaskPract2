@@ -15,3 +15,5 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['asdfghjkl123620@gmail.com']
+    #Flask-SQLAlchemy method : paginate()的設置
+    POSTS_PER_PAGE = 10
