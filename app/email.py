@@ -2,7 +2,7 @@ from flask_mail import Message
 from app import mail,app
 from flask import render_template
 from threading import Thread
-
+from flask_babel import _
 #防止應用變慢 使用python的一部方法 啟動一個後臺progress將比開始一個全新的progress需要資源少得多
 #手動創建應用的context 因為要使用progress
 #因為FLASK-MAIL的config儲存在app.config裡面
@@ -23,7 +23,7 @@ def send_mail(subject, sender, recipients, text_body, html_body):
 
 def send_password_reset_email(user):
     token = user.get_reset_password_token()
-    send_email('[Microblog] Reset Your Password',
+    send_email(_('[Microblog] Reset Your Password'),
                sender=app.config['ADMINS'][0],
                recipients=[user.email],
                text_body=render_template('email/reset_password.txt',

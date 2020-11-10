@@ -17,3 +17,4 @@ class Config(object):
     ADMINS = ['asdfghjkl123620@gmail.com']
     #Flask-SQLAlchemy method : paginate()的設置
     POSTS_PER_PAGE = 10
+    LANGUAGES = ['en-US', 'es-ES','zh-TW']
